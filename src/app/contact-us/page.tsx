@@ -13,7 +13,7 @@ export default function ContactUs() {
         <CardHeader>
           <CardTitle className="text-2xl font-bold">Contact Us</CardTitle>
           <CardDescription>
-            We'd love to hear from you! Please fill out the form below and we'll get back to you as soon as possible.
+            We&apos;d love to hear from you! Please fill out the form below and we&apos;ll get back to you as soon as possible.
           </CardDescription>
         </CardHeader>
         <CardContent>
