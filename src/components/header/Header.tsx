@@ -63,7 +63,6 @@ export async function Header() {
                 </span>
               </Link>
             </button>
-            <Search />
             {sideNavLinks.map(({ href, icon: Icon }) => (
               <Link key={href} href={href} className="text-gray-700 hover:text-gray-900">
                 <Icon className="h-5 w-5" />

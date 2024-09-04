@@ -101,25 +101,18 @@ model MenuImage {
 
 model Booking {
     id                 BigInt               @id @default(autoincrement())
-    user               User                 @relation(fields: [userId], references: [id])
-    userId             String
+    user               User?                @relation(fields: [userId], references: [id])
+    userId             String?
     numberOfGuests     Int
     bookingDate        DateTime
-    timeSlot           DateTime
-    status             BookingStatus        @default(PREBOOKING)
+    timeSlot           timeSlot[]
+    status             BookingStatus
     additionalDetails  String?
     createdAt          DateTime             @default(now())
-    preferences        BookingPreference[]
     payments           Payment[]
     paymentIntents     PaymentIntent[]
     transactionHistory TransactionHistory[]
-}
-
-model BookingPreference {
-    id         BigInt     @id @default(autoincrement())
-    booking    Booking    @relation(fields: [bookingId], references: [id])
-    bookingId  BigInt
-    preference Preference
+    // preference         Preference?
 }
 
 model Payment {
@@ -130,6 +123,7 @@ model Payment {
     amount          Decimal
     currency        String
     status          String
+    paymentMethod   String
     createdAt       DateTime @default(now())
     updatedAt       DateTime @default(now())
 }
@@ -160,13 +154,26 @@ model TransactionHistory {
 }
 
 enum BookingStatus {
-    PREBOOKING
-    PAYMENT_RECEIVED
-    BOOKING_CONFIRMED
     BOOKING_COMPLETED
+    BOOKING_CANCELLED
+    BOOKING_PENDING
+    Booking_FAILED
 }
 
 enum Preference {
     KIDS_FRIENDLY
     LOW_MUSIC
+}
+
+enum timeSlot {
+    TEN_AM    @map("10:00")
+    ELEVEN_AM @map("11:00")
+    TWELVE_PM @map("12:00")
+    ONE_PM    @map("01:00")
+    TWO_PM    @map("02:00")
+    FOUR_PM   @map("04:00")
+    FIVE_PM   @map("05:00")
+    SIX_PM    @map("06:00")
+    SEVEN_PM  @map("07:00")
+    EIGHT_PM  @map("08:00")
 }
