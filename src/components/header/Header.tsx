@@ -29,10 +29,10 @@ export async function Header() {
    </div>
    <div className="relative h-14 bg-zinc-100 border-b mb-[0.3] border-primary">
     <div className="container mx-auto flex h-full items-center justify-between px-4">
-     <div className="flex items-center space-x-11">
+     <div className="flex items-center space-x-11 h-full">
       <Link href="/">
        <Image src='/logo.png'
-        alt="KARA logo" width={100} height={35} />
+        alt="puff and plug logo" width={50} height={35} className='object-contain' />
       </Link>
       <nav className="hidden md:block">
        <ul className="flex space-x-11">
