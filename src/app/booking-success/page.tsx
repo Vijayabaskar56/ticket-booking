@@ -1,5 +1,5 @@
-import Link from "next/link"
-import React from "react"
+import Link from "next/link";
+
 
 export default function Component() {
  return (
@@ -23,7 +23,7 @@ export default function Component() {
     </div>
    </div>
   </div>
- )
+ );
 }
 
 function CheckIcon(props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>) {
@@ -41,6 +41,7 @@ function CheckIcon(props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGE
    strokeLinejoin="round"
   >
    <path d="M20 6 9 17l-5-5" />
+   <title>Check Icon</title>
   </svg>
- )
+ );
 }

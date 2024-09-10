@@ -1,35 +1,48 @@
-import React from 'react'
-import Image from 'next/image'
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
+import React from 'react';
+import Image from 'next/image';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import AboutUSHero from '@/components/header/AboutUSHero';
+import Link from 'next/link';
 
 const AboutUS = () => {
  return (
   <div className="container mx-auto px-10 py-8">
-   <h1 className="text-4xl font-bold text-center mb-8">About Flavor Haven</h1>
-
-   <section className="mb-12">
-    <h2 className="text-2xl font-semibold mb-4">Our Story</h2>
-    <div className="flex flex-col md:flex-row items-center gap-8">
-     <div className="md:w-1/2">
-      <p className="text-lg mb-4">
-       Flavor Haven was born out of a passion for bringing people together through exceptional food. Founded in 2010 by Chef Maria Rodriguez, our restaurant has become a cornerstone of the community, offering a unique blend of traditional recipes and innovative culinary techniques.
-      </p>
-      <p className="text-lg">
-       From our humble beginnings as a small family-owned eatery to the bustling establishment we are today, our commitment to quality ingredients and warm hospitality has remained unwavering.
-      </p>
-     </div>
-     <div className="md:w-1/2">
-      <Image
-       src="/placeholder.svg?height=300&width=400"
-       alt="Flavor Haven restaurant interior"
-       width={400}
-       height={300}
-       className="rounded-lg shadow-lg"
-      />
-     </div>
-    </div>
+   <div className="mb-8 text-center">
+    <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">About Us</h1>
+    <p className="text-xl text-gray-600">Learn More about Our Services!</p>
+   </div>
+   <section>
+    <AboutUSHero />
    </section>
+   <section className="my-12 w-full">
+    <Card className="md:order-2 w-full">
+     <CardHeader className="bg-gradient-to-r from-orange-500 to-red-500 text-white">
+      <CardTitle className="text-2xl font-bold">our Story</CardTitle>
+     </CardHeader>
+     <CardContent className="pt-6 w-full">
+      <div className="flex flex-col md:flex-row items-center w-full gap-8 justify-between">
+       <div className="md:w-1/2">
+        <p className="text-lg mb-4">
+         Flavor Haven was born out of a passion for bringing people together through exceptional food. Founded in 2010 by Chef Maria Rodriguez, our restaurant has become a cornerstone of the community, offering a unique blend of traditional recipes and innovative culinary techniques.
+        </p>
+        <p className="text-lg">
+         From our humble beginnings as a small family-owned eatery to the bustling establishment we are today, our commitment to quality ingredients and warm hospitality has remained unwavering.
+        </p>
+       </div>
+       <div className="md:w-1/2">
+        <Image
+         src="https://images.unsplash.com/photo-1534939561126-855b8675edd7?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+         alt="Flavor Haven restaurant interior"
+         width={400}
+         height={300}
+         className="rounded-lg shadow-lg"
+        />
+       </div>
+      </div>
+     </CardContent>
+    </Card>
+   </section >
 
    <section className="mb-12">
     <h2 className="text-2xl font-semibold mb-4">Meet Our Team</h2>
@@ -80,12 +93,14 @@ const AboutUS = () => {
    </section>
 
    <div className="text-center">
-    <Button size="lg">
-     Make a Reservation
-    </Button>
+    <Link href="/booking">
+     <Button size="lg">
+      Make a Reservation
+     </Button>
+    </Link>
    </div>
-  </div>
- )
-}
+  </div >
+ );
+};
 
-export default AboutUS
+export default AboutUS;

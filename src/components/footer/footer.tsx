@@ -1,22 +1,22 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import React from 'react'
+import Image from 'next/image';
+import Link from 'next/link';
+import React from 'react';
 
 const quickLinks = [
  { name: 'Home', href: '/' },
- { name: 'About Us', href: '/about' },
+ { name: 'About Us', href: '/about-us' },
  { name: 'Menu', href: '/menu' },
-]
+];
 
 const usefulLinks = [
- { name: 'Corporate Bookings', href: '/corporate-bookings' },
- { name: 'Covid Challenges', href: '/covid-challenges' },
  { name: 'Terms & Condition', href: '/terms-and-conditions' },
-]
+ { name: 'Refund Policy', href: '/refund-policy' },
+ { name: 'Privacy Policy', href: '/privacy-policy' },
+];
 
 export function Footer() {
  return (
-  <footer className="bg-slate-100 text-black">
+  <footer className=" text-black">
    <div className="container mx-auto px-4 py-8 md:py-12">
     <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
      <div>
@@ -27,6 +27,9 @@ export function Footer() {
        height={150}
        className="mb-4"
       />
+      <p className="text-sm">
+       NO 3, 1st Floor, 80 Feet Road, 6th Block, Koramangala, Bangalore - 560095
+      </p>
      </div>
      <div>
       <h3 className="mb-4 text-lg font-semibold uppercase">About Us</h3>
@@ -40,7 +43,10 @@ export function Footer() {
        {quickLinks.map((link) => (
         <li key={link.name}>
          <Link href={link.href} className="text-sm hover:underline">
-          ▶ {link.name}
+          <span className='text-primary-gradient mr-2'>
+           ▶
+          </span>
+          {link.name}
          </Link>
         </li>
        ))}
@@ -52,7 +58,10 @@ export function Footer() {
        {usefulLinks.map((link) => (
         <li key={link.name}>
          <Link href={link.href} className="text-sm hover:underline">
-          ▶ {link.name}
+          <span className='text-primary-gradient mr-2'>
+           ▶
+          </span>
+          {link.name}
          </Link>
         </li>
        ))}
@@ -61,9 +70,9 @@ export function Footer() {
     </div>
    </div>
 
-   <div className="border-t border-red-500 bg-zinc-100 py-4 text-center text-sm">
+   <div className="border-t border-primary bg-zinc-100 py-4 text-center text-sm">
     <p>Copyright 2023 © Smokehub Barbeque. All rights reserved.</p>
    </div>
   </footer>
- )
+ );
 }

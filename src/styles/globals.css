@@ -4,26 +4,83 @@
 
 @layer base {
   :root {
-    --background: 240 5% 6%;
-    --foreground: 60 5% 90%;
-    --primary: 240 0% 90%;
-    --primary-foreground: 60 0% 0%;
-    --secondary: 240 4% 15%;
-    --secondary-foreground: 60 5% 85%;
-    --accent: 240 0% 13%;
-    --accent-foreground: 60 0% 100%;
-    --destructive: 0 60% 50%;
+    --background: 0 0% 98%;
+    --foreground: 0 8% 5%;
+
+    --card: 0 0% 98%;
+    --card-foreground: 0 8% 5%;
+
+    --popover: 0 0% 98%;
+    --popover-foreground: 0 8% 5%;
+
+    --primary-start: 24 100% 50%; /* Orange start color */
+    --primary-end: 0 100% 50%; /* Red end color */
+    --primary: 15 99% 54%; /* Average solid color for components */
+    --primary-foreground: 0 0% 98%;
+
+    /* Gradient variables */
+    --primary-gradient: linear-gradient(
+      to right,
+      hsl(var(--primary-start)),
+      hsl(var(--primary-end))
+    );
+
+    --secondary: 0 7% 94%;
+    --secondary-foreground: 0 8% 5%;
+
+    --muted: 0 7% 94%;
+    --muted-foreground: 13 6% 45%;
+
+    --accent: 0 7% 94%;
+    --accent-foreground: 0 8% 5%;
+
+    --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
-    --muted: 240 5% 25%;
-    --muted-foreground: 60 5% 85%;
-    --card: 240 4% 10%;
-    --card-foreground: 60 5% 90%;
-    --popover: 240 5% 15%;
-    --popover-foreground: 60 5% 85%;
-    --border: 240 6% 20%;
-    --input: 240 6% 20%;
-    --ring: 240 5% 90%;
-    --radius: 0.5rem;
+
+    --border: 20 6% 90%;
+    --input: 12 6% 83%;
+    --ring: 15 24% 75%;
+
+    --radius: 1.5rem;
+  }
+
+  .dark {
+    --background: 20 7% 8%;
+    --foreground: 60 9% 98%;
+
+    --card: 20 6% 10%;
+    --card-foreground: 60 9% 98%;
+
+    --popover: 20 6% 10%;
+    --popover-foreground: 60 9% 98%;
+
+    --primary-start: 24 100% 50%; /* Orange start color */
+    --primary-end: 0 100% 50%; /* Red end color */
+    --primary: 15 99% 54%; /* Average solid color for components */
+    --primary-foreground: 0 0% 98%;
+
+    /* Gradient variables */
+    --primary-gradient: linear-gradient(
+      to right,
+      hsl(var(--primary-start)),
+      hsl(var(--primary-end))
+    );
+
+    --secondary: 15 8% 19%;
+    --secondary-foreground: 60 9% 98%;
+
+    --muted: 16 7% 29%;
+    --muted-foreground: 15 8% 49%;
+
+    --accent: 15 71% 19%;
+    --accent-foreground: 60 9% 98%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 12 8% 12%;
+    --input: 15 9% 18%;
+    --ring: 15 99% 40%;
   }
 }
 
@@ -33,7 +90,40 @@
   }
 
   body {
-    @apply bg-background text-foreground ;
+    @apply bg-background text-foreground;
   }
 
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .bg-primary-gradient {
+    background-image: var(--primary-gradient);
+  }
+
+  .text-primary-gradient {
+    background-image: var(--primary-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Override specific component styles to use the gradient */
+  .btn-primary {
+    background-image: var(--primary-gradient);
+    border: none;
+  }
+
+  .btn-primary:hover {
+    background-image: linear-gradient(
+      to right,
+      hsl(var(--primary-start) / 0.8),
+      hsl(var(--primary-end) / 0.8)
+    );
+  }
 }

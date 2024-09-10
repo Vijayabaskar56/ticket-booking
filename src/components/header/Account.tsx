@@ -1,14 +1,14 @@
-'use client'
-import React from 'react'
-import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
-import { Button } from '../ui/button'
-import { signIn } from 'next-auth/react'
-import { type Session } from 'next-auth'
+'use client';
+import React from 'react';
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
+import { Button } from '../ui/button';
+import { signIn } from 'next-auth/react';
+import type { Session } from 'next-auth';
 
 const Account = ({
  session,
 }: {
- session: Session | null
+ session: Session | null;
 }) => {
  return session?.user ?
   <Avatar>
@@ -16,12 +16,12 @@ const Account = ({
    <AvatarFallback>CN</AvatarFallback>
   </Avatar> : (
    // <Link href="/signin">
-   <Button onClick={() => signIn('google', {
+   <Button className='bg-primary-gradient' onClick={() => signIn('google', {
     callbackUrl: 'http://localhost:3000',
     redirect: false
    })} variant="default">Sign In</Button>
    // </Link>b
-  )
-}
+  );
+};
 
-export default Account
+export default Account;
