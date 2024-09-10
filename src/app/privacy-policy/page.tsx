@@ -66,7 +66,7 @@ const privacyPolicyData = [
  },
  {
   title: "10. Contact Us",
-  content: "If you have any questions about this Privacy Policy, please contact us at privacy@gourmettable.com or by post at: Gourmet Table, 123 Gourmet Street, Foodie City, FC 12345."
+  content: "If you have any questions about this Privacy Policy, please contact us at privacy@puffandplug.com or by post at: Gourmet Table, 123 Gourmet Street, Foodie City, FC 12345."
  }
 ];
 

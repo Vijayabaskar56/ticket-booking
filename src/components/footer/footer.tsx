@@ -71,7 +71,7 @@ export function Footer() {
    </div>
 
    <div className="border-t border-primary bg-zinc-100 py-4 text-center text-sm">
-    <p>Copyright 2023 © Smokehub Barbeque. All rights reserved.</p>
+    <p>Copyright 2023 © Puff and plug. All rights reserved.</p>
    </div>
   </footer>
  );

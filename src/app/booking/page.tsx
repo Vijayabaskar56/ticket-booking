@@ -1,24 +1,20 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-'use client'
+'use client';
 
-import { useState, useMemo, useCallback } from 'react'
-import { format, isSameDay, parseISO, startOfDay } from 'date-fns'
-import { Calendar } from "@/components/ui/calendar"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Slider } from "@/components/ui/slider"
+import { useState, useMemo, useCallback } from 'react';
+import { format, isSameDay, parseISO, startOfDay } from 'date-fns';
+import { Calendar } from "@/components/ui/calendar";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Slider } from "@/components/ui/slider";
 import { loadStripe } from '@stripe/stripe-js';
-import { Button } from "@/components/ui/button"
-import { Label } from "@/components/ui/label"
-import { CalendarIcon, Users, Clock, IndianRupee } from 'lucide-react'
-import { useToast } from '@/hooks/use-toast'
-import { env } from '@/env'
-import { api } from '@/trpc/react'
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { CalendarIcon, Users, Clock, IndianRupee } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
+import { env } from '@/env';
+import { api } from '@/trpc/react';
 
 
-const BASE_PRICE_PER_HOUR = 500
+const BASE_PRICE_PER_HOUR = 500;
 
 
 const times: Record<number, string> = {
@@ -32,23 +28,24 @@ const times: Record<number, string> = {
  8: "SIX_PM",
  9: "SEVEN_PM",
  10: "EIGHT_PM"
-}
+};
 
 const timeSlots = [
- "10:00", "11:00", "12:00", "1:00", "3:00",
- "4:00", "5:00", "6:00", "7:00", "8:00",
-]
+ "10:00-11:00", "10:30-11:30", "11:00-12:00", "11:30-12:30", "1:30-2:30",
+ "2:00-3:00", "3:30-4:30", "4:00-5:00", "4:30-5:30", "5:00-6:00",
+ "6:00-7:00", "6:30-7:30", "7:00-8:00", "7:30-8:30", "8:00-9:00",
+];
 
 
 const stripePromise = loadStripe(env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
 
 
 export default function BookingForm() {
- const [date, setDate] = useState<Date | undefined>(new Date())
- const [guests, setGuests] = useState(1)
- const [selectedTimeSlots, setSelectedTimeSlots] = useState<number[]>([])
+ const [date, setDate] = useState<Date | undefined>(new Date());
+ const [guests, setGuests] = useState(1);
+ const [selectedTimeSlots, setSelectedTimeSlots] = useState<number[]>([]);
  const [isLoading, setIsLoading] = useState(false);
- const { toast } = useToast()
+ const { toast } = useToast();
  const bookingData = api.booking.getSlotDetails.useQuery(null);
  // const bookingData = {
  //  data: {
@@ -83,47 +80,48 @@ export default function BookingForm() {
    slots: booking.timeSlot.map(slot =>
     Object.entries(times).find(([_, value]) => value === slot)?.[0]
    ).filter(Boolean).map(Number)
-  }))
- }, [bookingData?.data?.data])
+  }));
+ }, [bookingData?.data?.data]);
 
  const isDateFullyBooked = useCallback((date: Date) => {
-  const bookingsForDate = bookings?.filter((booking) => isSameDay(booking.date, date))
-  const bookedSlots = new Set(bookingsForDate?.flatMap(booking => booking.slots))
-  return bookedSlots.size === Object.keys(times).length
- }, [bookings])
+  const bookingsForDate = bookings?.filter((booking) => isSameDay(booking.date, date));
+  const bookedSlots = new Set(bookingsForDate?.flatMap(booking => booking.slots));
+  return bookedSlots.size === Object.keys(times).length;
+ }, [bookings]);
 
  const getBookedSlotsForDate = useCallback((date: Date) => {
   return bookings
    ?.filter((booking) => isSameDay(booking.date, date))
-   ?.flatMap((booking) => booking.slots)
- }, [bookings])
+   ?.flatMap((booking) => booking.slots);
+ }, [bookings]);
 
  const handleTimeSlotClick = (index: number) => {
   setSelectedTimeSlots(prev => {
    if (prev.includes(index)) {
-    return prev.filter(i => i !== index)
+    return prev.filter(i => i !== index);
+    // biome-ignore lint/style/noUselessElse: <explanation>
    } else if (prev.length === 0 || prev.includes(index - 1) || prev.includes(index + 1)) {
-    return [...prev, index].sort((a, b) => a - b)
+    return [...prev, index].sort((a, b) => a - b);
    }
-   return prev
-  })
- }
+   return prev;
+  });
+ };
 
  const totalPrice = useMemo(() => {
-  return selectedTimeSlots.length * BASE_PRICE_PER_HOUR * guests
- }, [selectedTimeSlots.length, guests])
+  return selectedTimeSlots.length * BASE_PRICE_PER_HOUR * guests;
+ }, [selectedTimeSlots.length, guests]);
  const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault()
+  e.preventDefault();
   console.log('date', !date || selectedTimeSlots.length === 0);
-  console.log(selectedTimeSlots.map(index => times[index + 1]))
+  console.log(selectedTimeSlots.map(index => times[index + 1]));
   new Error('error');
   if (!date || selectedTimeSlots.length === 0) {
    toast({
     title: "Booking Error",
     description: "Please select a date and at least one time slot.",
     variant: "destructive",
-   })
-   return
+   });
+   return;
   }
 
   setIsLoading(true);
@@ -145,10 +143,11 @@ export default function BookingForm() {
    console.log(response, 'response');
 
 
-   const session = await response.json() as unknown as { sessionId: string };
+   const session = await response.json() as unknown as { sessionId: string; };
 
    // Redirect to Checkout
    const stripe = await stripePromise;
+   // biome-ignore lint/style/noNonNullAssertion: <explanation>
    const result = await stripe!.redirectToCheckout({
     sessionId: session.sessionId,
    });
@@ -165,7 +164,7 @@ export default function BookingForm() {
   } finally {
    setIsLoading(false);
   }
- }
+ };
 
  return (
   <div className='p-0 m-0 md:px-80 py-20'>
@@ -191,6 +190,7 @@ export default function BookingForm() {
          max={20}
          step={1}
          value={[guests]}
+         // biome-ignore lint/style/noNonNullAssertion: <explanation>
          onValueChange={(value) => setGuests(value[0]!)}
          className="w-full"
         />
@@ -211,8 +211,8 @@ export default function BookingForm() {
         mode="single"
         selected={date}
         onSelect={(newDate) => {
-         setDate(newDate ? startOfDay(newDate) : undefined)
-         setSelectedTimeSlots([])
+         setDate(newDate ? startOfDay(newDate) : undefined);
+         setSelectedTimeSlots([]);
         }}
         disabled={(date) => startOfDay(date) < startOfDay(new Date()) || isDateFullyBooked(date)}
         className="rounded-md border"
@@ -228,9 +228,10 @@ export default function BookingForm() {
       <CardContent>
        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
         {timeSlots.map((slot, index) => {
-         const isBooked = date ? getBookedSlotsForDate(date)?.includes(index + 1) : false
+         const isBooked = date ? getBookedSlotsForDate(date)?.includes(index + 1) : false;
          return (
           <Button
+           // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
            key={index}
            type="button"
            disabled={isBooked}
@@ -241,7 +242,7 @@ export default function BookingForm() {
            <Clock className="mr-2 h-4 w-4" />
            {slot}
           </Button>
-         )
+         );
         })}
        </div>
       </CardContent>
@@ -288,5 +289,5 @@ export default function BookingForm() {
     </Card>
    </form>
   </div>
- )
+ );
 }

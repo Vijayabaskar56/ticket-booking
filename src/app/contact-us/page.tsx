@@ -99,7 +99,7 @@ export default function ContactUs() {
         </div>
         <div className="flex items-center">
          <Mail className="h-5 w-5 mr-2 text-orange-500" />
-         <p>contact@gourmettable.com</p>
+         <p>contact@puffandplug.com</p>
         </div>
        </div>
       </CardContent>
