@@ -28,7 +28,7 @@ export function Footer() {
        className="mb-4"
       />
       <p className="text-sm">
-       NO 3, 1st Floor, 80 Feet Road, 6th Block, Koramangala, Bangalore - 560095
+       Opposite to Ayyanar Kovil, Parapalayam Pirivu, Tiruppur-07
       </p>
      </div>
      <div>
